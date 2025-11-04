@@ -26,6 +26,12 @@ def generate_launch_description():
             name='vehicle_filter',
             default_value='vehicle.*'
         ),
+
+        launch.actions.DeclareLaunchArgument(
+            name='objects_definition_file',
+            default_value=get_package_share_directory(
+                'carla_spawn_objects') + '/config/objects_min.json'
+        ),
         launch.actions.DeclareLaunchArgument(
             name='spawn_point',
             default_value='None'
@@ -72,6 +78,7 @@ def generate_launch_description():
                 'timeout': launch.substitutions.LaunchConfiguration('timeout'),
                 'vehicle_filter': launch.substitutions.LaunchConfiguration('vehicle_filter'),
                 'role_name': launch.substitutions.LaunchConfiguration('role_name'),
+                'objects_definition_file': launch.substitutions.LaunchConfiguration('objects_definition_file'),
                 'spawn_point': launch.substitutions.LaunchConfiguration('spawn_point')
             }.items()
         ),
