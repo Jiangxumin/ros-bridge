@@ -50,7 +50,8 @@ class TFSensor(PseudoActor):
         if ROS_VERSION == 1:
             self._tf_broadcaster = tf2_ros.TransformBroadcaster()
         elif ROS_VERSION == 2:
-            self._tf_broadcaster = tf2_ros.TransformBroadcaster(node)
+            # self._tf_broadcaster = tf2_ros.TransformBroadcaster(node)
+            pass
 
     @staticmethod
     def get_blueprint_name():
@@ -68,14 +69,15 @@ class TFSensor(PseudoActor):
 
         transform = None
         try:
-            transform = self.parent.get_current_ros_transform()
+            # transform = self.parent.get_current_ros_transform()
+            pass
         except AttributeError:
             # parent actor disappeared, do not send tf
             self.node.logwarn(
                 "TFSensor could not publish transform. Actor {} not found".format(self.parent.uid))
             return
 
-        self._tf_broadcaster.sendTransform(TransformStamped(
-            header=self.get_msg_header("map", timestamp=timestamp),
-            child_frame_id=self.parent.get_prefix(),
-            transform=transform))
+        # self._tf_broadcaster.sendTransform(TransformStamped(
+        #     header=self.get_msg_header("map", timestamp=timestamp),
+        #     child_frame_id=self.parent.get_prefix(),
+        #     transform=transform))

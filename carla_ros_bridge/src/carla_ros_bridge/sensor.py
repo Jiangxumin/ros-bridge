@@ -104,7 +104,8 @@ class Sensor(Actor):
         if ROS_VERSION == 1:
             self._tf_broadcaster = tf2_ros.TransformBroadcaster()
         elif ROS_VERSION == 2:
-            self._tf_broadcaster = tf2_ros.TransformBroadcaster(node)
+            pass
+            # self._tf_broadcaster = tf2_ros.TransformBroadcaster(node)
 
     def get_ros_transform(self, pose, timestamp):
         if self.synchronous_mode:
@@ -139,9 +140,10 @@ class Sensor(Actor):
         return transform
 
     def publish_tf(self, pose, timestamp):
-        transform = self.get_ros_transform(pose, timestamp)
+        # transform = self.get_ros_transform(pose, timestamp)
         try:
-            self._tf_broadcaster.sendTransform(transform)
+            # self._tf_broadcaster.sendTransform(transform)
+            pass
         except roscomp.exceptions.ROSException:
             if roscomp.ok():
                 self.node.logwarn("Sensor {} failed to send transform.".format(self.uid))
