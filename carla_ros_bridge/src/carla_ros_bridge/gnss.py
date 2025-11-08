@@ -86,7 +86,7 @@ class Gnss(Sensor):
         gpsfix_msg.header = self.get_msg_header(timestamp=carla_gnss_measurement.timestamp)
         
         # Position
-        gpsfix_msg.latitude = carla_gnss_measurement.latitude
+        gpsfix_msg.latitude = -carla_gnss_measurement.latitude  # 南半球
         gpsfix_msg.longitude = carla_gnss_measurement.longitude
         gpsfix_msg.altitude = carla_gnss_measurement.altitude
         
@@ -109,8 +109,8 @@ class Gnss(Sensor):
                 roll, pitch, yaw = trans.carla_rotation_to_RPY(vehicle_transform.rotation)
                 gpsfix_msg.roll = math.degrees(roll)
                 gpsfix_msg.pitch = math.degrees(pitch)
+
                 gpsfix_msg.dip = math.degrees(yaw)  # Magnetic dip angle, not available
-                
                 # Track (direction from north in degrees, 0-360)
                 # carla_rotation_to_RPY returns yaw in radians [-π, π]
                 # Convert to degrees and normalize to [0, 360)
